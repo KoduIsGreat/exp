@@ -89,6 +89,9 @@ func (g *graph) print(out io.Writer, visitedNodes map[string]bool, currentNode *
 }
 
 func (g *graph) printPathTo(out io.Writer, printedNodes, visitedNodes map[string]bool, currentNode *node, needle string) error {
+	if _, ok := g.nodes[needle]; !ok {
+		return fmt.Errorf("%q does not exist in dependency graph", needle)
+	}
 	if visitedNodes == nil {
 		visitedNodes = map[string]bool{}
 	}

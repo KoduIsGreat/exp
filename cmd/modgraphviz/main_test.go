@@ -128,3 +128,15 @@ test.com/D test.com/E
 		t.Fatalf("\ngot: %s\nwant: %s", out.String(), want)
 	}
 }
+
+func TestRun_PathTo_NoPath(t *testing.T) {
+	out := bytes.Buffer{}
+
+	g, err := newGraph(&bytes.Buffer{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := g.printPathTo(&out, nil, nil, nil,"test.com/biscuit" ); err == nil {
+		t.Fatal("expected but did not receive fatal error: path not found")
+	}
+}
